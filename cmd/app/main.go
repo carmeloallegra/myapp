@@ -31,6 +31,7 @@ func main() {
 	}
 }
 
+//Greet whatever
 func Greet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello World")
 }
