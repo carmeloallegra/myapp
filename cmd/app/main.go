@@ -3,16 +3,21 @@ package main
 import (
 	"fmt"
 	"log"
+	"myapp/cmd/app/config"
 	"net/http"
 	"time"
 )
 
 func main() {
+	appConf := config.AppConfig()
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", Greet)
 
-	log.Println("Starting server : 8080")
+	address := fmt.Sprintf(":%d", appConf.Server.Port)
+	log.Printf("Starting server %s\n", address)
 
+	//	address := fmt.Sprintf(":%d")
 	s := &http.Server{
 		Addr:         ":8080",
 		Handler:      mux,
