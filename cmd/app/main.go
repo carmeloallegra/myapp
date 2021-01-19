@@ -6,21 +6,23 @@ import (
 	"myapp/cmd/app/config"
 	"net/http"
 	"time"
+
+	"myapp/app/app/router"
+	// "myapp/app/router"
 )
 
 func main() {
 	appConf := config.AppConfig()
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", Greet)
+	appRouter := router.New()
 
 	address := fmt.Sprintf(":%d", appConf.Server.Port)
+
 	log.Printf("Starting server %s\n", address)
 
-	//	address := fmt.Sprintf(":%d")
 	s := &http.Server{
 		Addr:         ":8080",
-		Handler:      mux,
+		Handler:      appRouter,
 		ReadTimeout:  30 * time.Second,
 		WriteTimeout: 30 * time.Second,
 		IdleTimeout:  120 * time.Second,
